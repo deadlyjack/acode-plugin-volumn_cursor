@@ -1,7 +1,7 @@
 {
   "id": "acode.plugin.volumncursor",
   "name": "Volumn cursor",
-  "type": "pro",
+  "type": "free",
   "main": "dist/main.js",
   "version": "1.0.0",
   "readme": "readme.md",
