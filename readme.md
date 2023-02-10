@@ -2,5 +2,8 @@
 
 Control editor cursor.
 
-- Volumn up > left
-- Volumn down > right
+## Updates
+
+### 0.0.1
+
+- Added settings to change direction of cursor movement.
