@@ -1,13 +1,12 @@
 {
-  "name": "acode-plugin",
+  "name": "acode-plugin-volumncursor",
   "version": "1.0.1",
-  "description": "Template for Acode plugin",
+  "description": "Plugin for acode editor to move cursor using volume keys",
   "main": "dist/main.js",
   "repository": "https://github.com/deadlyjack/acode-plugin.git",
   "author": "Ajit <me@ajitkumar.dev>",
   "license": "MIT",
   "dependencies": {
-    "html-tag-js": "^1.1.6",
     "terser": ">=5.14.2 "
   },
   "devDependencies": {

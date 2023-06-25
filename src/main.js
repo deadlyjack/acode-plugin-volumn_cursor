@@ -1,5 +1,5 @@
-import tag from 'html-tag-js';
 import plugin from '../plugin.json';
+import KeyboardEvent from './keyboardEvent';
 
 const appSettings = acode.require('settings');
 
@@ -20,31 +20,36 @@ class AcodePlugin {
   KEY_UP = 38;
   KEY_RIGHT = 39;
   KEY_DOWN = 40;
+  lastActiveElement = null;
 
   constructor() {
     if (!appSettings[plugin.id]) {
       appSettings[plugin.id] = {
         direction: this.TO_RIGHT,
       };
+
     }
     this.removeListeners = this.removeListeners.bind(this);
-    this.addListners = this.addListners.bind(this);
+    this.addListeners = this.addListeners.bind(this);
     this.onvolumndown = this.onvolumndown.bind(this);
     this.onvolumnup = this.onvolumnup.bind(this);
+    this.update = this.update.bind(this);
   }
 
   async init() {
-    const { editor } = editorManager;
-    editor.on('focus', this.addListners);
-    editor.on('blur', this.removeListeners);
+    document.addEventListener('focusin', this.update);
   }
 
   async destroy() {
-    const { editor } = editorManager;
-    editor.off('focus', this.addListners);
-    editor.off('blur', this.removeListeners);
-    document.removeEventListener('volumeupbutton', this.onvolumnup);
-    document.removeEventListener('volumedownbutton', this.onvolumndown);
+    this.removeListeners();
+    document.removeEventListener('focusin', this.update);
+  }
+
+  update() {
+    this.removeListeners();
+    if (this.isEditable) {
+      this.addListeners();
+    }
   }
 
   removeListeners() {
@@ -52,7 +57,7 @@ class AcodePlugin {
     document.removeEventListener('volumedownbutton', this.onvolumndown);
   }
 
-  addListners() {
+  addListeners() {
     document.addEventListener('volumeupbutton', this.onvolumnup);
     document.addEventListener('volumedownbutton', this.onvolumndown);
   }
@@ -100,16 +105,21 @@ class AcodePlugin {
   }
 
   dispatchKey(which) {
-    const { editor } = editorManager;
-    const shiftKey = tag.get('#shift-key')?.dataset.state === 'on'
-    const $textarea = editor.textInput.getElement();
-    const keyevent = window.createKeyboardEvent('keydown', {
+    const keyEvent = KeyboardEvent('keydown', {
+      type: 'keydown',
       key: keyMapping[which],
       keyCode: which,
-      shiftKey,
+      which,
     });
 
-    $textarea.dispatchEvent(keyevent);
+    console.log(keyEvent);
+    document.activeElement.dispatchEvent(keyEvent);
+  }
+
+  get isEditable() {
+    return document.activeElement instanceof HTMLTextAreaElement
+      || document.activeElement instanceof HTMLInputElement
+      || document.activeElement.isContentEditable;
   }
 
   get settingsObj() {

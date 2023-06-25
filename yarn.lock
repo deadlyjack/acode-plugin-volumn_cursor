@@ -2046,11 +2046,6 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-html-tag-js@^1.1.6:
-  version "1.1.36"
-  resolved "https://registry.yarnpkg.com/html-tag-js/-/html-tag-js-1.1.36.tgz#39d8a722a92d4b77072e3438d1fac8d82b691968"
-  integrity sha512-8AqoJJNKIuuEn4si4sJKIBqeee/pdRtuRorYwHLlejHlqhY28ge7uyUGCU9qdbyQvtmpMnQV906BSBmrSdlr4Q==
-
 http-auth@3.1.x:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/http-auth/-/http-auth-3.1.3.tgz#945cfadd66521eaf8f7c84913d377d7b15f24e31"
